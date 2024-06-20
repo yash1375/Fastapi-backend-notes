@@ -6,7 +6,11 @@ import jwt
 from ..Dependencies.Dependencies import verify_token
 from bson.objectid import ObjectId
 
-secret = "ineedtochangethis@e43"
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+secret = os.getenv("SECRET_NOTE")
 
 router = APIRouter(prefix="/user")
 @router.post('/createuser')
@@ -20,6 +24,7 @@ def createnotes(user:User,response:Response):
     user.password = bcrypt.hashpw(user.password.encode('utf-8'),salt)
     data.insert_one(dict(user))
     response.status_code = status.HTTP_201_CREATED
+    print(secret)
     return "success"
 
 @router.get('/login')
