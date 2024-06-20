@@ -24,7 +24,6 @@ def createnotes(user:User,response:Response):
     user.password = bcrypt.hashpw(user.password.encode('utf-8'),salt)
     data.insert_one(dict(user))
     response.status_code = status.HTTP_201_CREATED
-    print(secret)
     return "success"
 
 @router.get('/login')
